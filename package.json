@@ -9,18 +9,35 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "@reduxjs/toolkit": "^2.12.0",
+    "date-fns": "^4.4.0",
+    "lucide-react": "^1.18.0",
+    "next": "14.2.35",
+    "radashi": "^12.9.1",
+    "radix-ui": "^1.5.0",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.35"
+    "react-hook-form": "^7.79.0",
+    "react-redux": "^9.3.0",
+    "tailwind-variants": "^3.2.2",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@playwright/test": "^1.60.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitejs/plugin-react": "^6.0.2",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35",
+    "jsdom": "^29.1.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.35"
+    "typescript": "^5",
+    "vitest": "^4.1.8"
   }
 }
