@@ -1,5 +1,6 @@
 export { formatDate, formatDateShort, formatRelativeDate } from './formatDate'
 export { STATUS_LABELS, PRIORITY_LABELS, CATEGORY_LABELS } from './labels'
+export { STATUS_COLORS, PRIORITY_COLORS } from './colors'
 export * from './variants/badge.variants'
 export * from './variants/button.variants'
 export * from './variants/input.variants'
