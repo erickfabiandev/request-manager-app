@@ -27,3 +27,9 @@ export const PAGINATION = {
   DEFAULT_PAGE: 1,
   DEFAULT_LIMIT: 5,
 } as const
+
+export const STATUS_LIST: RequestStatus[] = Object.keys(STATUS_LABELS) as RequestStatus[]
+
+export const PRIORITY_LIST: RequestPriority[] = Object.keys(PRIORITY_LABELS) as RequestPriority[]
+
+export const CATEGORY_LIST: RequestCategory[] = Object.keys(CATEGORY_LABELS) as RequestCategory[]

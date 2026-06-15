@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Trash2, ChevronRight } from 'lucide-react'
+import { Trash2, ChevronRight, CalendarDays } from 'lucide-react'
 import { StatusBadge, PriorityBadge } from '@/shared/components'
 import { formatDateShort } from '@/shared/lib'
 import type { Request } from '@/domain/models/Request'
@@ -16,10 +16,16 @@ export function RequestCard({ request, onDelete }: RequestCardProps) {
 
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-4">
-      <div className="flex items-start justify-between gap-2 mb-3">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-medium text-gray-400">{request.id}</span>
-          <StatusBadge status={request.status} />
+      <div className="flex items-start justify-between gap-2 mb-5">
+        <div className="flex flex-col gap-[4px] items-start">
+          <span className="text-md font-medium text-secondary">{request.id}</span>
+          <p className="text-xs text-neutral-900/75">{request.title}</p>
+          <div className="flex items-center">
+            <CalendarDays size={12} className="inline mr-1 text-neutral-900/75" />
+            <p className="text-xs font-regular text-neutral-900/75">
+              {formatDateShort(request.creationDate)}
+            </p>
+          </div>
         </div>
         <button
           onClick={() => onDelete(request.id)}
@@ -29,17 +35,13 @@ export function RequestCard({ request, onDelete }: RequestCardProps) {
         </button>
       </div>
 
-      <p className="text-sm font-medium text-gray-800 mb-3">{request.title}</p>
-
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div>
-            <p className="text-xs text-gray-400">Prioridad</p>
             <PriorityBadge priority={request.priority} />
           </div>
           <div>
-            <p className="text-xs text-gray-400">Fecha</p>
-            <p className="text-xs text-gray-600">{formatDateShort(request.creationDate)}</p>
+            <StatusBadge status={request.status} />
           </div>
         </div>
         <button

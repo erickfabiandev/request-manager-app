@@ -10,6 +10,7 @@ interface RouteParams {
 export async function GET(_req: NextRequest, { params }: RouteParams): Promise<NextResponse> {
   try {
     const request = db.getById(params.id)
+    logger.info('Getting request by id', { id: params.id, found: !!request })
     if (!request) {
       logger.warn('Request not found', { id: params.id })
       return NextResponse.json({ error: 'Request not found' }, { status: 404 })

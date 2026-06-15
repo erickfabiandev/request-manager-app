@@ -12,22 +12,25 @@ import { useAppDispatch } from '@/presentation/hooks/useAppDispatch'
 import {  useAppSelector } from '@/presentation/hooks/useAppSelector'
 import { openDeleteModal, closeDeleteModal } from '@/presentation/store/uiSlice'
 import { PAGINATION } from '@/config/constants'
-import type { Request } from '@/domain/models/Request'
+import type { Request, RequestPriority, RequestStatus } from '@/domain/models/Request'
 import { useDebounce } from '@/shared/hooks/useDebounce'
+import { toast } from 'sonner'
+import { getErrorMessage } from '@/shared/types/errors'
 
 export default function RequestsPage() {
   const router = useRouter()
   const dispatch = useAppDispatch()
+
   const isDeleteModalOpen = useAppSelector(state => state.ui.isDeleteModalOpen)
   const selectedRequestId = useAppSelector(state => state.ui.selectedRequestId)
 
-  const [search, setSearch] = useState('')
-  const [status, setStatus] = useState('')
-  const [priority, setPriority] = useState('')
-  const [page, setPage] = useState(1)
-  const [sortField, setSortField] = useState('creationDate')
+  const [search, setSearch] = useState<string>('')
+  const [status, setStatus] = useState<RequestStatus | ''>('')
+  const [priority, setPriority] = useState<RequestPriority | ''>('')
+  const [page, setPage] = useState<number>(1)
+  const [sortField, setSortField] = useState<keyof Request>('creationDate')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
-  const debouncedSearch = useDebounce(search, 300)
+  const debouncedSearch = useDebounce<string>(search, 300)
 
   const { data, isLoading, isError } = useGetRequestsQuery({
     search: debouncedSearch,
@@ -39,7 +42,7 @@ export default function RequestsPage() {
 
   const [deleteRequest, { isLoading: isDeleting }] = useDeleteRequestMutation()
 
-  const handleSort = useCallback((field: string) => {
+  const handleSort = useCallback((field: keyof Request) => {
     if (sortField === field) {
       setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc')
     } else {
@@ -57,9 +60,18 @@ export default function RequestsPage() {
 
   const handleDelete = useCallback(async () => {
     if (!selectedRequestId) return
-    await deleteRequest(selectedRequestId)
-    dispatch(closeDeleteModal())
+    try {
+      await deleteRequest(selectedRequestId).unwrap()
+      toast.success('Solicitud eliminada correctamente')
+      dispatch(closeDeleteModal())
+    } catch (error) {
+      toast.error(getErrorMessage(error))
+    }
   }, [selectedRequestId, deleteRequest, dispatch])
+
+  const handleOpenDelete = useCallback((id: string) => {
+    dispatch(openDeleteModal(id))
+  }, [dispatch])
 
   const sortedRequests = [...(data?.data ?? [])].sort((a, b) => {
     const aVal = String(a[sortField as keyof Request] ?? '')
@@ -79,11 +91,10 @@ export default function RequestsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Solicitudes</h1>
-          <p className="text-sm text-gray-500 mt-1">Consulta y gestión de solicitudes</p>
+          <h1 className="text-2xl font-semibold text-secondary">Solicitudes</h1>
+          <p className="text-sm text-neutral-900/75 mt-1">Consulta y gestión de solicitudes</p>
         </div>
         <Button onClick={() => router.push('/requests/new')}>
           <Plus size={16} />
@@ -91,7 +102,6 @@ export default function RequestsPage() {
         </Button>
       </div>
 
-      {/* Filters */}
       <RequestsFilters
         search={search}
         status={status}
@@ -102,31 +112,28 @@ export default function RequestsPage() {
         onClear={handleClear}
       />
 
-      {/* Table — tablet+ */}
       {sortedRequests.length === 0 ? (
         <EmptyState
           title="Sin solicitudes"
-          description="No se encontraron solicitudes con los filtros aplicados."
+          description="No se encontraron solicitudes. Intenta ajustando los filtros o creando una nueva solicitud."
         />
       ) : (
         <>
           <div className="hidden tablet:block bg-white rounded-xl border border-gray-100">
             <RequestsTable
               requests={sortedRequests}
-              onDelete={(id) => dispatch(openDeleteModal(id))}
+              onDelete={handleOpenDelete}
               onSort={handleSort}
               sortField={sortField}
-              sortOrder={sortOrder}
             />
           </div>
 
-          {/* Cards — mobile */}
           <div className="tablet:hidden space-y-3">
             {sortedRequests.map(request => (
               <RequestCard
                 key={request.id}
                 request={request}
-                onDelete={(id) => dispatch(openDeleteModal(id))}
+                onDelete={handleOpenDelete}
               />
             ))}
           </div>
