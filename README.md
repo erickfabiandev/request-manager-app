@@ -156,6 +156,10 @@ npm run test:coverage
 | Components | StatusBadge, MetricCard |
 | Infrastructure | db store — CRUD completo |
 
+### Reporte de cobertura
+
+El reporte completo está disponible en [`docs/test-report.txt`](./docs/test-report.txt).
+
 ---
 
 ## 🔌 API REST
@@ -244,6 +248,16 @@ Se implementó eliminación física. En banca real se recomendaría soft delete 
 
 ### Breakpoints semánticos
 Se definieron breakpoints con nombres semánticos (`mobile`, `tablet`, `laptop`, `desktop`) en lugar de los genéricos de Tailwind para mayor legibilidad y alineación con el diseño en Figma.
+
+---
+
+## 📋 Supuestos Asumidos
+
+- **Backend en memoria** — se usó un store en memoria con seed data para simplificar el backend y enfocar la evaluación en el frontend. En producción se reemplazaría por una base de datos sin modificar el dominio.
+- **Eliminación física** — el DELETE elimina el registro permanentemente. En un sistema bancario real se implementaría soft delete cambiando el status a `closed` para mantener trazabilidad.
+- **Sin autenticación** — el sistema no implementa login ni control de acceso. Se asume un único usuario autenticado llamado "Erick Carrasco".
+- **Edición restringida por estado** — solo las solicitudes en estado `pending` o `in_review` pueden editarse, siguiendo reglas de negocio definidas en el dominio.
+- **Persistencia en Vercel** — el entorno serverless de Vercel no comparte el store entre instancias Lambda. Para evaluación completa usar Docker local.
 
 ---
 
