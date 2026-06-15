@@ -91,6 +91,7 @@ export default function RequestsPage() {
   )
 
   return (
+    <> 
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
@@ -144,22 +145,20 @@ export default function RequestsPage() {
             totalPages={data?.totalPages ?? 1}
             onPageChange={setPage}
           />
-
-          <p className="text-xs text-gray-400 text-center">
-            Mostrando {sortedRequests.length} de {data?.total ?? 0} solicitudes
-          </p>
         </>
       )}
-
-      <Modal
-        isOpen={isDeleteModalOpen}
-        title="Eliminar solicitud"
-        description="¿Estás seguro que deseas eliminar esta solicitud? Esta acción no se puede deshacer."
-        confirmLabel="Eliminar"
-        onConfirm={handleDelete}
-        onCancel={() => dispatch(closeDeleteModal())}
-        isLoading={isDeleting}
-      />
     </div>
+
+
+    <Modal
+      isOpen={isDeleteModalOpen}
+      title="Eliminar solicitud"
+      description="¿Estás seguro que deseas eliminar esta solicitud? Esta acción no se puede deshacer."
+      confirmLabel="Eliminar"
+      onConfirm={handleDelete}
+      onCancel={() => dispatch(closeDeleteModal())}
+      isLoading={isDeleting}
+    />
+   </>
   )
 }

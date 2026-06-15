@@ -16,6 +16,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     let data = db.getAll()
 
+    data = data.sort((a, b) => 
+      new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime()
+    )
+
     if (status) data = data.filter(r => r.status === status)
     if (priority) data = data.filter(r => r.priority === priority)
     if (search) data = data.filter(r =>

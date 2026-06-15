@@ -25,7 +25,7 @@ export const CATEGORY_LABELS: Record<RequestCategory, string> = {
 
 export const PAGINATION = {
   DEFAULT_PAGE: 1,
-  DEFAULT_LIMIT: 5,
+  DEFAULT_LIMIT: 10,
 } as const
 
 export const STATUS_LIST: RequestStatus[] = Object.keys(STATUS_LABELS) as RequestStatus[]
