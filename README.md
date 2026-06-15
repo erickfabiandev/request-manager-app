@@ -262,6 +262,14 @@ Se definieron breakpoints con nombres semánticos (`mobile`, `tablet`, `laptop`,
 
 ---
 
+## 🌐 Demo
+
+La aplicación está desplegada en Vercel para demostración visual:
+
+🔗 **[Ver demo](https://request-manager-app-liart.vercel.app)**
+
+> ⚠️ Para evaluación completa del CRUD usar Docker local — el store en memoria no persiste entre instancias serverless.
+
 ## 👤 Autor
 
 Desarrollado por **Erick Carrasco** como parte del proceso de selección.
