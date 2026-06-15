@@ -64,6 +64,7 @@ export default function RequestsPage() {
       await deleteRequest(selectedRequestId).unwrap()
       toast.success('Solicitud eliminada correctamente')
       dispatch(closeDeleteModal())
+      router.refresh()
     } catch (error) {
       toast.error(getErrorMessage(error))
     }

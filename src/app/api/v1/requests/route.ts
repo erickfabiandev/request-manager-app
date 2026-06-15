@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/infrastructure/data/store'
 import { logger } from '@/config/logger'
@@ -62,9 +61,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       ...body,
       status: 'pending',
     })
-
-    revalidatePath('/')
-    revalidatePath('/requests')
 
     logger.info('Request created', { id: newRequest.id })
     return NextResponse.json(newRequest, { status: 201 })

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useGetRequestByIdQuery, useUpdateRequestMutation } from '@/presentation/store/requestsApi'
 import { RequestDetailView } from '@/presentation/components/RequestDetail/RequestDetailView'
 import { RequestEditForm } from '@/presentation/components/RequestDetail/RequestEditForm'
@@ -15,6 +15,8 @@ export default function RequestDetailPage() {
   const { id } = useParams<{ id: string }>()
   const [isEditing, setIsEditing] = useState<boolean>(false)
 
+    const router = useRouter()
+
   const { data: request, isLoading, isError } = useGetRequestByIdQuery(id)
   const [updateRequest, { isLoading: isUpdating }] = useUpdateRequestMutation()
 
@@ -23,6 +25,7 @@ export default function RequestDetailPage() {
     await updateRequest({ id, data }).unwrap()
     toast.success('Solicitud actualizada correctamente')
     setIsEditing(false)
+    router.refresh()
   } catch (error) {
     toast.error(getErrorMessage(error))
   }
