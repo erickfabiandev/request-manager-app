@@ -4,7 +4,7 @@ export const input = tv({
   base: 'w-full rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 placeholder:text-gray-400',
   variants: {
     state: {
-      default: 'border-gray-200 focus:border-primary focus:ring-primary/20',
+      default: 'border-neutral-200 focus:border-primary focus:ring-primary/20',
       error: 'border-red-500 focus:border-red-500 focus:ring-red-500 bg-red-50',
       disabled: 'border-gray-200 bg-gray-50 cursor-not-allowed text-gray-400',
     },
@@ -37,7 +37,7 @@ export const textarea = tv({
   base: 'w-full rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 placeholder:text-gray-400 resize-none',
   variants: {
     state: {
-      default: 'border-gray-200 focus:border-primary focus:ring-primary/20',
+      default: 'border-neutral-200 focus:border-primary focus:ring-primary/20',
       error: 'border-red-500 focus:border-red-500 focus:ring-red-500 bg-red-50',
     },
     size: {
