@@ -9,6 +9,13 @@ interface StatusChartProps {
   requests: Request[]
 }
 
+interface LegendEntry {
+  payload: {
+    value: number
+    status: string
+  }
+}
+
 export function StatusChart({ requests }: StatusChartProps) {
   const data = Object.entries(
     requests.reduce<Record<string, number>>((acc, r) => {
@@ -45,11 +52,14 @@ export function StatusChart({ requests }: StatusChartProps) {
             layout="vertical"
             align="right"
             verticalAlign="middle"
-            formatter={(value, entry: any) => (
-              <span className="text-xs text-gray-600">
-                {value} — {entry.payload.value}
-              </span>
-            )}
+            formatter={(value, entry: unknown) =>{
+              const legendEntry = entry as LegendEntry
+              return (
+                <span className="text-xs text-gray-600">
+                  {value} — {legendEntry.payload.value}
+                </span>
+              )
+            } }
           />
         </PieChart>
       </ResponsiveContainer>

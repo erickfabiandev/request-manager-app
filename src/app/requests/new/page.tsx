@@ -15,7 +15,7 @@ export default function NewRequestPage() {
     try {
         await createRequest(data).unwrap()
         toast.success('Solicitud creada correctamente')
-        router.push('/requests')
+        router.refresh()
     } catch (error) {
         toast.error(getErrorMessage(error))
     }

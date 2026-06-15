@@ -9,6 +9,7 @@ import { Button } from '@/shared/components'
 import { CATEGORY_LABELS, PRIORITY_LABELS, CATEGORY_LIST, PRIORITY_LIST } from '@/config/constants'
 import { input, label, errorMessage, textarea } from '@/shared/lib/variants/input.variants'
 import { select } from '@/shared/lib/variants/select.variants'
+import { RequestCategory, RequestPriority } from '@/domain/models/Request'
 
 interface RequestFormProps {
   onSubmit: (data: CreateRequestFormData) => Promise<void>
@@ -18,11 +19,22 @@ interface RequestFormProps {
 export function RequestForm({ onSubmit, isLoading = false }: RequestFormProps) {
   const router = useRouter()
 
-  const { register, handleSubmit, formState: { errors }, } = useForm<CreateRequestFormData>({
+  const { register, handleSubmit, reset, formState: { errors }, } = useForm<CreateRequestFormData>({
     resolver: zodResolver(createRequestSchema),
     mode: 'onTouched',
+    defaultValues: {
+      title: '',
+      description: '',
+      requester: '',
+      category: '' as unknown as RequestCategory,
+      priority: '' as unknown as RequestPriority,
+    }
   })
 
+  const handleFormSubmit = async (data: CreateRequestFormData) => {
+    await onSubmit(data)
+    reset()
+  }
 
   return (
     <div className="space-y-6">
@@ -49,7 +61,7 @@ export function RequestForm({ onSubmit, isLoading = false }: RequestFormProps) {
           </Button>
           <Button
             size="sm"
-            onClick={handleSubmit(onSubmit)}
+            onClick={handleSubmit(handleFormSubmit)}
             disabled={isLoading}
           >
             {isLoading ? 'Creando...' : 'Crear Solicitud'}

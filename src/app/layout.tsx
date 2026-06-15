@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import { StoreProvider } from '@/presentation/store/StoreProvider'
 import { MainLayout } from '@/presentation/components/Layout'
 import { Toaster } from 'sonner'
-// @ts-ignore: Implicit CSS import for Next.js global stylesheet
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })

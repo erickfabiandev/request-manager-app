@@ -3,19 +3,17 @@ import { MetricCard } from '@/presentation/components/Dashboard/MetricCard'
 import { StatusChart } from '@/presentation/components/Dashboard/StatusChart'
 import { PriorityChart } from '@/presentation/components/Dashboard/PriorityChart'
 import { RecentRequests } from '@/presentation/components/Dashboard/RecentRequests'
-import { env } from '@/config/env' 
 import { Request as RequestModel, RequestStatus} from '@/domain/models/Request'
 import { STATUS_LABELS } from '@/shared/lib/labels'
 import { STATUS_LIST } from '@/config/constants'
+import { serverContainer } from '@/infrastructure/serverContainer'
+
+export const dynamic = 'force-dynamic'
 
 async function getDashboardData(): Promise<RequestModel[]> {
-  const res = await fetch(
-    `${env.NEXT_PUBLIC_API_URL}/api/v1/requests?limit=100`,
-    { cache: 'no-store' }
-  )
-  if (!res.ok) throw new Error('Failed to fetch dashboard data')
-  const data = await res.json() as { data: RequestModel[] }
-  return data.data ?? []
+  const result = await serverContainer.getRequests.execute({ limit: 100, page: 1 })
+  const requests = result.data || []
+  return requests
 }
 
 const countByStatus = (requests: RequestModel[], status: RequestStatus): number =>
