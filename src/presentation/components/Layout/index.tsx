@@ -15,7 +15,7 @@ export function MainLayout({ children }: LayoutProps) {
   const dispatch = useAppDispatch()
 
   return (
-    <div className="flex h-screen bg-neutral-50 overflow-hidden">
+    <div className="flex h-screen bg-neutral-100 overflow-hidden">
 
       <aside className="hidden desktop:flex flex-shrink-0">
         <Sidebar collapsible/>
@@ -41,7 +41,7 @@ export function MainLayout({ children }: LayoutProps) {
         </>
       )}
 
-      {/* Contenido principal */}
+
       <div className="flex flex-col flex-1 overflow-hidden">
         <TopBar />
         <main className="flex-1 overflow-y-auto p-4 lg:p-6">

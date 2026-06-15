@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { StoreProvider } from '@/presentation/store/StoreProvider'
 import { MainLayout } from '@/presentation/components/Layout'
+import { Toaster } from 'sonner'
 // @ts-ignore: Implicit CSS import for Next.js global stylesheet
 import './globals.css'
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <MainLayout>
             {children}
           </MainLayout>
+          <Toaster position="top-right" richColors />
         </StoreProvider>
       </body>
     </html>

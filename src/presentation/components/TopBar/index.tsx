@@ -24,8 +24,8 @@ export function TopBar() {
           <p className="text-sm font-medium text-gray-900">Erick Carrasco</p>
           <p className="text-xs text-gray-500">Gestor</p>
         </div>
-        <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-          <User size={18} className="text-primary" />
+        <div className="w-9 h-9 rounded-full bg-secondary/10 flex items-center justify-center">
+          <User size={18} className="text-secondary" />
         </div>
       </div>
     </header>

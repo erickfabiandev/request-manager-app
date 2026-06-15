@@ -12,7 +12,7 @@ const navItem = tv({
   base: 'flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors',
   variants: {
     active: {
-      true: 'bg-white/10 text-white',
+      true: 'bg-neutral-900/75 text-white',
       false: 'text-gray-400 hover:bg-white/5 hover:text-white',
     },
     collapsed: {
@@ -47,12 +47,12 @@ export function Sidebar({
     <div className={`flex flex-col h-full bg-secondary text-white transition-all duration-300 ${
       isCollapsed ? 'w-16' : 'w-60'
     }`}>
-      {/* Header */}
+
       <div className={`flex items-center p-6 ${isCollapsed ? 'justify-center p-4' : 'justify-between'}`}>
         <div>
           <p className="text-xl font-bold text-white">RM</p>
           {!isCollapsed && (
-            <p className="text-xs text-gray-400">Gestor de Solicitudes</p>
+            <p className="text-sm text-gray-400">Gestor de Solicitudes</p>
           )}
         </div>
         {isMobile && (
@@ -65,8 +65,8 @@ export function Sidebar({
         )}
       </div>
 
-      {/* Nav */}
-      <nav className="flex-1 px-3 space-y-1">
+
+      <nav className="flex-1 px-3 space-y-2">
         {navItems.map(({ href, label, icon: Icon }) => (
           <Link
             key={href}
@@ -75,20 +75,19 @@ export function Sidebar({
             className={navItem({ active: pathname === href, collapsed: isCollapsed })}
             title={isCollapsed ? label : undefined}
           >
-            <Icon size={18} />
+            <Icon size={20} />
             {!isCollapsed && label}
           </Link>
         ))}
       </nav>
 
-      {/* Botón collapse — solo cuando collapsible=true */}
       {collapsible && (
         <div className="p-3">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="w-full flex items-center justify-center p-2 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
           >
-            {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+            {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
           </button>
         </div>
       )}

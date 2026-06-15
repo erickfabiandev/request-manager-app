@@ -7,5 +7,8 @@ export const formatDate = (dateString: string): string =>
 export const formatDateShort = (dateString: string): string =>
   format(new Date(dateString), 'dd MMM yyyy', { locale: es })
 
+export const formatDateShortTime = (dateString: string): string =>
+  format(new Date(dateString), 'dd MMM yyyy HH:mm', { locale: es })
+
 export const formatRelativeDate = (dateString: string): string =>
   formatDistanceToNow(new Date(dateString), { addSuffix: true, locale: es })

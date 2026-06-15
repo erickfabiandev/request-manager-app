@@ -1,29 +1,27 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Eye, Trash2, ArrowUpDown } from 'lucide-react'
 import { StatusBadge, PriorityBadge, CategoryBadge } from '@/shared/components'
 import { formatDateShort } from '@/shared/lib'
 import type { Request } from '@/domain/models/Request'
+import { memo } from 'react'
 
 interface RequestsTableProps {
   requests: Request[]
   onDelete: (id: string) => void
-  onSort: (field: string) => void
-  sortField: string
-  sortOrder: 'asc' | 'desc'
+  onSort: (field: keyof Request) => void
+  sortField: keyof Request
 }
 
-export function RequestsTable({
+export const RequestsTable = memo(function RequestsTable({
   requests,
   onDelete,
   onSort,
-  sortField,
-  sortOrder,
+  sortField
 }: RequestsTableProps) {
-  const router = useRouter()
 
-  const SortButton = ({ field }: { field: string }) => (
+  const SortButton = ({ field }: { field: keyof Request }) => (
     <button
       onClick={() => onSort(field)}
       className={`ml-1 inline-flex items-center ${
@@ -35,30 +33,30 @@ export function RequestsTable({
   )
 
   return (
-    <div className="w-full overflow-x-auto">
-      <table className="w-full text-sm">
+    <div className="w-full overflow-x-auto rounded-lg">
+      <table className="w-full text-sm rounded-lg">
         <thead>
           <tr className="border-b border-gray-200 bg-gray-50">
-            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
+            <th className="text-left py-3 px-4 text-xs font-semibold text-neutral-900/75 uppercase">
               N° Solicitud <SortButton field="id" />
             </th>
-            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
+            <th className="text-left py-3 px-4 text-xs font-semibold text-neutral-900/75 uppercase">
               Título <SortButton field="title" />
             </th>
-            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase hidden laptop:table-cell">
+            <th className="text-left py-3 px-4 text-xs font-semibold text-neutral-900/75 uppercase hidden laptop:table-cell">
               Categoría
             </th>
-            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase hidden tablet:table-cell">
-              Prioridad <SortButton field="priority" />
+            <th className="text-left py-3 px-4 text-xs font-semibold text-neutral-900/75 uppercase hidden tablet:table-cell">
+              Prioridad
             </th>
-            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-              Estado <SortButton field="status" />
+            <th className="text-left py-3 px-4 text-xs font-semibold text-neutral-900/75 uppercase">
+              Estado
             </th>
-            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase hidden laptop:table-cell">
+            <th className="text-left py-3 px-4 text-xs font-semibold text-neutral-900/75 uppercase hidden laptop:table-cell">
               Fecha <SortButton field="creationDate" />
             </th>
-            <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-              Acción
+            <th className="text-left py-3 px-4 text-xs font-semibold text-neutral-900/75 uppercase">
+              Acciones
             </th>
           </tr>
         </thead>
@@ -66,12 +64,12 @@ export function RequestsTable({
           {requests.map(request => (
             <tr
               key={request.id}
-              className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+              className="border-b border-neutral-100 hover:bg-gray-50 transition-colors"
             >
               <td className="py-3 px-4 font-medium text-gray-700">{request.id}</td>
-              <td className="py-3 px-4 text-gray-600 max-w-xs truncate">{request.title}</td>
-              <td className="py-3 px-4 hidden laptop:table-cell">
-                <CategoryBadge category={request.category} />
+              <td className="py-3 px-4 text-neutral-900/70 max-w-xs truncate">{request.title}</td>
+              <td className="py-3 px-4 text-neutral-900/70 hidden laptop:table-cell">
+                {request.category}
               </td>
               <td className="py-3 px-4 hidden tablet:table-cell">
                 <PriorityBadge priority={request.priority} />
@@ -79,23 +77,25 @@ export function RequestsTable({
               <td className="py-3 px-4">
                 <StatusBadge status={request.status} />
               </td>
-              <td className="py-3 px-4 text-gray-500 hidden laptop:table-cell">
+              <td className="py-3 px-4 text-neutral-900/70 hidden laptop:table-cell">
                 {formatDateShort(request.creationDate)}
               </td>
               <td className="py-3 px-4">
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => router.push(`/requests/${request.id}`)}
-                    className="text-primary hover:underline text-sm font-medium flex items-center gap-1"
+                  
+                  <Link
+                    href={`/requests/${request.id}`}
+                    title="Ver detalle"
+                    className="p-1.5 rounded-lg text-primary hover:bg-primary/10 transition-colors"
                   >
-                    <Eye size={14} />
-                    Ver
-                  </button>
+                    <Eye size={15} />
+                  </Link>
                   <button
+                    title="Eliminar solicitud"
                     onClick={() => onDelete(request.id)}
-                    className="text-red-500 hover:text-red-700 transition-colors"
+                    className="p-1.5 rounded-lg text-red-500 hover:bg-red-500/10 transition-colors"
                   >
-                    <Trash2 size={14} />
+                    <Trash2 size={16} />
                   </button>
                 </div>
               </td>
@@ -105,4 +105,4 @@ export function RequestsTable({
       </table>
     </div>
   )
-}
+})

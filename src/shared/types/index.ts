@@ -1,9 +1,2 @@
-export interface ApiError {
-  error: string
-  status?: number
-}
-
-export interface SelectOption<T extends string = string> {
-  value: T
-  label: string
-}
+export type { ApiError } from './errors'
+export { isApiError, getErrorMessage } from './errors'
