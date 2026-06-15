@@ -187,15 +187,26 @@ Base URL: `http://localhost:3000/api/v1`
 
 ## 🎨 Diseño
 
-El diseño fue desarrollado en **Figma** con una paleta inspirada en la identidad corporativa de Scotiabank:
+El diseño fue desarrollado en **Figma** con una paleta inspirada en la identidad corporativa
 
-| Token | Color | Uso |
+[Link de Figma - mockups](https://www.figma.com/design/QjFZxTuhltXgWLurFQ87Vd/Request-Manager-App?node-id=0-1&t=GzjkizNgk9qqIQsh-1)
+
+### Paleta de colores
+
+| Token | Default | Uso |
 |---|---|---|
-| `primary` | #C8102E | Botones principales, acciones |
-| `secondary` | #1A1A2E | Sidebar, headers |
-| `accent` | #F5A623 | Highlights |
+| `primary` | #2563EB | Botones principales, links, acciones |
+| `secondary` | #1A1A2E | Sidebar, headers, texto principal |
+| `accent` | #F5A623 | Highlights, CTAs secundarios |
+| `success` | #2F855A | Estado aprobada, confirmaciones |
+| `warning` | #D97706 | Estado pendiente, advertencias |
+| `danger` | #DC2626 | Estado rechazada, errores, eliminar |
+| `closed` | #5C5E62 | Estado cerrada, elementos inactivos |
+| `critical` | #7C3AED | Prioridad crítica |
 
-Breakpoints responsivos custom:
+Cada color tiene variantes semánticas: `DEFAULT`, `subtle`, `emphasis`, `solid`.
+
+### Breakpoints responsivos
 
 | Nombre | px | Dispositivo |
 |---|---|---|
@@ -203,6 +214,17 @@ Breakpoints responsivos custom:
 | `tablet` | 768px | Tablet |
 | `laptop` | 1280px | Laptop |
 | `desktop` | 1440px | Desktop |
+
+### Variantes de componentes
+
+Sistema de variantes construido con **Tailwind Variants**:
+
+- `badge.variants.ts` — StatusBadge, PriorityBadge, CategoryBadge
+- `button.variants.ts` — primary, secondary, danger, ghost
+- `input.variants.ts` — default, error, disabled
+- `select.variants.ts` — default, error, disabled
+
+*Nota.* El componente `CategoryBadge` fue diseñado y desarrollado; sin embargo, se omitió su implementación final debido a inconsistencias estéticas y conflictos visuales en la interfaz de usuario.
 
 ---
 
@@ -234,6 +256,7 @@ Se definieron breakpoints con nombres semánticos (`mobile`, `tablet`, `laptop`,
 - [ ] Dark mode completo
 - [ ] Historial de cambios de solicitudes
 - [ ] Adjuntos en solicitudes
+- [ ] Reporteria mas detallada
 - [ ] Bottom navigation bar en mobile
 - [ ] Despliegue en Vercel
 
@@ -241,4 +264,4 @@ Se definieron breakpoints con nombres semánticos (`mobile`, `tablet`, `laptop`,
 
 ## 👤 Autor
 
-Desarrollado por **Erick Carrasco** como parte del proceso de selección de Scotiabank.
+Desarrollado por **Erick Carrasco** como parte del proceso de selección.
