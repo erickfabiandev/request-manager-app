@@ -1,18 +1,11 @@
 'use client'
 
 import { Search, X, ChevronDown } from 'lucide-react'
-import { tv } from 'tailwind-variants'
 import { STATUS_LABELS, PRIORITY_LABELS } from '@/shared/lib/labels'
 import { Button } from '@/shared/components'
 import { RequestPriority, RequestStatus } from '@/domain/models/Request'
-
-const searchInput = tv({
-  base: 'w-full pl-9 pr-4 py-2 text-sm border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
-})
-
-const filterSelect = tv({
-  base: 'w-full text-sm border border-neutral-200 rounded-lg pl-3 pr-9 py-2 m-0 appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white cursor-pointer',
-})
+import { select } from '@/shared/lib/variants/select.variants'
+import { input } from '@/shared/lib/variants/input.variants'
 
 interface RequestsFiltersProps {
   search: string
@@ -45,7 +38,7 @@ export function RequestsFilters({
           placeholder="Buscar por número o título..."
           value={search}
           onChange={e => onSearchChange(e.target.value)}
-          className={searchInput()}
+          className={input({ state: 'default', size: 'md' }) + ' pl-9 pr-4'}
         />
       </div>
 
@@ -55,7 +48,7 @@ export function RequestsFilters({
            id='select-status'
             value={status}
             onChange={e => onStatusChange(e.target.value as RequestStatus)}
-            className={filterSelect()}
+            className={select({ state: 'default' })}
           >
             <option value="">Estado: Todos</option>
             {Object.entries(STATUS_LABELS).map(([value, label]) => (
@@ -70,7 +63,7 @@ export function RequestsFilters({
            id='select-priority'
             value={priority}
             onChange={e => onPriorityChange(e.target.value as RequestPriority)}
-            className={filterSelect()}
+            className={select({ state: 'default' })}
           >
             <option value="">Prioridad: Todas</option>
             {Object.entries(PRIORITY_LABELS).map(([value, label]) => (

@@ -150,7 +150,6 @@ export default function RequestsPage() {
         </>
       )}
 
-      {/* Delete Modal */}
       <Modal
         isOpen={isDeleteModalOpen}
         title="Eliminar solicitud"

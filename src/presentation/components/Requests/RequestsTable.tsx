@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Eye, Trash2, ArrowUpDown } from 'lucide-react'
-import { StatusBadge, PriorityBadge, CategoryBadge } from '@/shared/components'
+import { StatusBadge, PriorityBadge } from '@/shared/components'
 import { formatDateShort } from '@/shared/lib'
 import type { Request } from '@/domain/models/Request'
 import { memo } from 'react'

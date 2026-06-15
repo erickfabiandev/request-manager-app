@@ -115,7 +115,6 @@ export function RequestForm({ onSubmit, isLoading = false }: RequestFormProps) {
           </div>
         </div>
 
-        {/* Columna derecha — Descripción */}
         <div className="bg-white rounded-xl border border-gray-100 p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-900">Descripción</h2>
           <div className="space-y-1">
